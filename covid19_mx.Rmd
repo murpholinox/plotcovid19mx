@@ -1,0 +1,43 @@
+---
+title: "Covid 19 Mexico"
+author: "Murpholinox Peligro"
+date: "11 abril 2020"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r}
+# Carga paquetes
+library(ggplot2)
+library(ggdark)
+library(latex2exp)
+```
+
+```{r}
+# Carga los datos limpios
+smalldf <- read.csv("~/Repos/plotcovid19mx/smalldf.csv")
+# Crea una gráfica base
+p<-ggplot(data = smalldf, aes(x=days, y=y2)) + geom_point()
+```
+
+```{r}
+# Crea el modelo exponencial
+model = nls(y2 ~ a * exp(b*days), data=smalldf, start = list(a=0.67, b=0.16))
+# Imprime información del modelo
+summary(model)
+# Agrega el ajuste con los parámetros del modelo
+p +
+  stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
+              method.args = list(start = list(a = 0.67, b = 0.16))) +
+# la ecuación de la exponencial,
+      annotate("label", x=5, y=30, label=TeX('$y  =  0.67  e^{0.16  x }$')) +
+# los títulos necesarios,
+  ylab("Muertes") + xlab("Día") +  ggtitle("Muertes por covid-19 (18-03/11-04)") +
+# Cambia el tema base 
+  theme_classic(base_size = 15)
+# Este solo para salida en formato html.
+# dark_theme_gray(base_size = 15)
+```
+
