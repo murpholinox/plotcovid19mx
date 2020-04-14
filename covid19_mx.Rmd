@@ -8,7 +8,8 @@ output:
   pdf_document:
     keep_tex: yes
 ---
-s
+
+
 ```{r, warning=FALSE, message=FALSE}
 # Carga paquetes
 library(ggplot2)
@@ -20,7 +21,7 @@ library(dplyr)
 setwd("/home/murphy/Repos/plotcovid19mx")
 ```
 
-```{bash, include=FALSE, warning=FALSE, message=FALSE}
+```{bash, warning=FALSE, message=FALSE}
 # Descarga datos del European CDC
 wget -O full.csv https://opendata.ecdc.europa.eu/covid19/casedistribution/csv
 # Obtiene líneas correspondientes a México
@@ -67,21 +68,19 @@ summary(m)
 
 ```{r, warning=FALSE, message=FALSE}
 # Agrega el ajuste con los parámetros del modelo
-p +
+p2 <- p +
   stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
               method.args = list(start = list(a = 1.7, b =  0.12))) +
 # la ecuación de la exponencial,
       annotate("label", x=5, y=30, label=TeX('$y  =  1.7  e^{0.12  x }$')) +
 # los títulos necesarios,
-  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por covid-19 (20-03/13-04)") +
-# Cambia el tema base 
-  theme_light(base_size = 15)
-# Este solo para salida en formato html.
-#  dark_theme_gray(base_size = 15)
+  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por covid-19 (20-03/13-04)") 
+# y cambia el tema base dependiendo del formato de salida
+if (knitr::is_html_output()) {
+  p2 + dark_theme_gray(base_size = 15)
+} else if (knitr::is_latex_output()) {
+  p2 + theme_light(base_size = 15)
+}
 ```
 
-```{r}
-library(bookdown)
-knitr::include_graphics("/home/murphy/Repos/plotcovid19mx/Rplot.pdf")
-```
 

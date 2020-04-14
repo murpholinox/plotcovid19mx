@@ -111,8 +111,6 @@
 \begin{document}
 \maketitle
 
-s
-
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Carga paquetes}
@@ -125,6 +123,48 @@ s
 \KeywordTok{setwd}\NormalTok{(}\StringTok{"/home/murphy/Repos/plotcovid19mx"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Descarga datos del European CDC}
+\FunctionTok{wget}\NormalTok{ -O full.csv https://opendata.ecdc.europa.eu/covid19/casedistribution/csv}
+\CommentTok{# Obtiene líneas correspondientes a México}
+\FunctionTok{grep}\NormalTok{ Mex full.csv }\OperatorTok{>}\NormalTok{ mex.csv}
+\CommentTok{# Solo ocupamos la columna 1 y 6  (fecha, decesos por día)}
+\FunctionTok{awk}\NormalTok{ -F }\StringTok{","} \StringTok{'\{print $1"," $6\}'}\NormalTok{ mex.csv }\OperatorTok{>}\NormalTok{ clean.csv}
+\CommentTok{# Añade nombre a las columnas}
+\BuiltInTok{echo} \StringTok{"fecha,decesos"} \OperatorTok{>>}\NormalTok{ clean.csv}
+\CommentTok{# Ahora ordena los datos}
+\FunctionTok{tac}\NormalTok{ clean.csv }\OperatorTok{>}\NormalTok{ clean_r.csv}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## --2020-04-14 15:27:11--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv
+## Resolving opendata.ecdc.europa.eu (opendata.ecdc.europa.eu)... 212.181.0.63
+## Connecting to opendata.ecdc.europa.eu (opendata.ecdc.europa.eu)|212.181.0.63|:443... connected.
+## HTTP request sent, awaiting response... 301 Moved Permanently
+## Location: https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/ [following]
+## --2020-04-14 15:27:12--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/
+## Reusing existing connection to opendata.ecdc.europa.eu:443.
+## HTTP request sent, awaiting response... 200 OK
+## Length: 551354 (538K) [application/octet-stream]
+## Saving to: ‘full.csv’
+## 
+##      0K .......... .......... .......... .......... ..........  9%  136K 4s
+##     50K .......... .......... .......... .......... .......... 18%  272K 2s
+##    100K .......... .......... .......... .......... .......... 27%  273K 2s
+##    150K .......... .......... .......... .......... .......... 37%  138K 2s
+##    200K .......... .......... .......... .......... .......... 46% 3.21M 1s
+##    250K .......... .......... .......... .......... .......... 55%  291K 1s
+##    300K .......... .......... .......... .......... .......... 65%  270K 1s
+##    350K .......... .......... .......... .......... .......... 74%  273K 1s
+##    400K .......... .......... .......... .......... .......... 83% 1.09M 0s
+##    450K .......... .......... .......... .......... .......... 92%  335K 0s
+##    500K .......... .......... .......... ........             100%  230K=2.0s
+## 
+## 2020-04-14 15:27:14 (267 KB/s) - ‘full.csv’ saved [551354/551354]
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -170,39 +210,36 @@ s
 ## 
 ## Parameters:
 ##   Estimate Std. Error t value Pr(>|t|)    
-## a  1.70853    0.71683   2.383   0.0258 *  
-## b  0.12414    0.01921   6.464 1.35e-06 ***
+## a  1.91634    0.72222   2.653   0.0139 *  
+## b  0.11739    0.01664   7.054 2.71e-07 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 6.007 on 23 degrees of freedom
+## Residual standard error: 5.993 on 24 degrees of freedom
 ## 
-## Number of iterations to convergence: 11 
-## Achieved convergence tolerance: 7.088e-06
+## Number of iterations to convergence: 9 
+## Achieved convergence tolerance: 6.174e-06
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Agrega el ajuste con los parámetros del modelo}
-\NormalTok{p }\OperatorTok{+}
+\NormalTok{p2 <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}
 \StringTok{  }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{'nls'}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{a }\OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(b }\OperatorTok{*}\StringTok{ }\NormalTok{x), }\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{,}
               \DataTypeTok{method.args =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{start =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{a =} \FloatTok{1.7}\NormalTok{, }\DataTypeTok{b =}  \FloatTok{0.12}\NormalTok{))) }\OperatorTok{+}
 \CommentTok{# la ecuación de la exponencial,}
 \StringTok{      }\KeywordTok{annotate}\NormalTok{(}\StringTok{"label"}\NormalTok{, }\DataTypeTok{x=}\DecValTok{5}\NormalTok{, }\DataTypeTok{y=}\DecValTok{30}\NormalTok{, }\DataTypeTok{label=}\KeywordTok{TeX}\NormalTok{(}\StringTok{'$y  =  1.7  e^\{0.12  x \}$'}\NormalTok{)) }\OperatorTok{+}
 \CommentTok{# los títulos necesarios,}
-\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Decesos"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Día"}\NormalTok{) }\OperatorTok{+}\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Decesos por covid-19 (18-03/13-04)"}\NormalTok{) }\OperatorTok{+}
-\CommentTok{# Cambia el tema base }
-\StringTok{  }\KeywordTok{theme_classic}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{15}\NormalTok{)}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Decesos"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Día"}\NormalTok{) }\OperatorTok{+}\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Decesos por covid-19 (20-03/13-04)"}\NormalTok{) }
+\CommentTok{# y cambia el tema base dependiendo del formato de salida}
+\ControlFlowTok{if}\NormalTok{ (knitr}\OperatorTok{::}\KeywordTok{is_html_output}\NormalTok{()) \{}
+\NormalTok{  p2 }\OperatorTok{+}\StringTok{ }\KeywordTok{dark_theme_gray}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{15}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (knitr}\OperatorTok{::}\KeywordTok{is_latex_output}\NormalTok{()) \{}
+\NormalTok{  p2 }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_light}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{15}\NormalTok{)}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{covid19_mx_files/figure-latex/unnamed-chunk-6-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# Este solo para salida en formato html.}
-\CommentTok{#  dark_theme_gray(base_size = 15)}
-\end{Highlighting}
-\end{Shaded}
 
 \end{document}
