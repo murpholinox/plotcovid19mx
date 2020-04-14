@@ -1,43 +1,87 @@
 ---
 title: "Covid 19 Mexico"
 author: "Murpholinox Peligro"
-date: "11 abril 2020"
+date: "13 de abril 2020"
 output:
   html_document:
     df_print: paged
-  pdf_document: default
+  pdf_document:
+    keep_tex: yes
 ---
-
-```{r}
+s
+```{r, warning=FALSE, message=FALSE}
 # Carga paquetes
 library(ggplot2)
 library(ggdark)
 library(latex2exp)
+library(lubridate)
+library(dplyr)
+# Configura el directorio de trabajo
+setwd("/home/murphy/Repos/plotcovid19mx")
+```
+
+```{bash, include=FALSE, warning=FALSE, message=FALSE}
+# Descarga datos del European CDC
+wget -O full.csv https://opendata.ecdc.europa.eu/covid19/casedistribution/csv
+# Obtiene líneas correspondientes a México
+grep Mex full.csv > mex.csv
+# Solo ocupamos la columna 1 y 6  (fecha, decesos por día)
+awk -F "," '{print $1"," $6}' mex.csv > clean.csv
+# Añade nombre a las columnas
+echo "fecha,decesos" >> clean.csv
+# Ahora ordena los datos
+tac clean.csv > clean_r.csv
 ```
 
 ```{r}
-# Carga los datos limpios
-smalldf <- read.csv("~/Repos/plotcovid19mx/smalldf.csv")
+# Carga los datos semi limpios
+datos <- read.csv("~/Repos/plotcovid19mx/clean_r.csv")
+# Cambia el formato de la fecha
+datos$newdate <- lubridate::dmy(datos$fecha)
+```
+
+```{r}
+# Ahora crea una nueva variable con nuevo formato para la fecha
+xmax <- max(length(datos$fecha))
+datos$number <- seq(0,xmax-1)
+# Necesitamos los días del outbreak en México (después del 20-marzo)
+smalldf<-datos %>%
+  filter(number >= 72) 
+# Ordena los datos
+x<-smalldf$number
+x<-x-71
+y<-smalldf$decesos
+nice<-tibble(x,y)
+# Guarda datos finales
+write.csv(nice, file="~/Repos/plotcovid19mx/nice.csv")
 # Crea una gráfica base
-p<-ggplot(data = smalldf, aes(x=days, y=y2)) + geom_point()
+p <- ggplot(data = nice, aes(x=x, y=y)) + geom_point()
 ```
 
 ```{r}
 # Crea el modelo exponencial
-model = nls(y2 ~ a * exp(b*days), data=smalldf, start = list(a=0.67, b=0.16))
+m <-nls(y~a*exp(b*x), start = list(a=0.01, b=0.15))
 # Imprime información del modelo
-summary(model)
+summary(m)
+```
+
+```{r, warning=FALSE, message=FALSE}
 # Agrega el ajuste con los parámetros del modelo
 p +
   stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
-              method.args = list(start = list(a = 0.67, b = 0.16))) +
+              method.args = list(start = list(a = 1.7, b =  0.12))) +
 # la ecuación de la exponencial,
-      annotate("label", x=5, y=30, label=TeX('$y  =  0.67  e^{0.16  x }$')) +
+      annotate("label", x=5, y=30, label=TeX('$y  =  1.7  e^{0.12  x }$')) +
 # los títulos necesarios,
-  ylab("Muertes") + xlab("Día") +  ggtitle("Muertes por covid-19 (18-03/11-04)") +
+  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por covid-19 (20-03/13-04)") +
 # Cambia el tema base 
-  theme_classic(base_size = 15)
+  theme_light(base_size = 15)
 # Este solo para salida en formato html.
-# dark_theme_gray(base_size = 15)
+#  dark_theme_gray(base_size = 15)
+```
+
+```{r}
+library(bookdown)
+knitr::include_graphics("/home/murphy/Repos/plotcovid19mx/Rplot.pdf")
 ```
 

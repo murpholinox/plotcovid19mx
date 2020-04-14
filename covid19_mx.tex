@@ -1,0 +1,208 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Covid 19 Mexico},
+            pdfauthor={Murpholinox Peligro},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{Covid 19 Mexico}
+\author{Murpholinox Peligro}
+\date{13 de abril 2020}
+
+\begin{document}
+\maketitle
+
+s
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Carga paquetes}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(ggdark)}
+\KeywordTok{library}\NormalTok{(latex2exp)}
+\KeywordTok{library}\NormalTok{(lubridate)}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\CommentTok{# Configura el directorio de trabajo}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"/home/murphy/Repos/plotcovid19mx"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Carga los datos semi limpios}
+\NormalTok{datos <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"~/Repos/plotcovid19mx/clean_r.csv"}\NormalTok{)}
+\CommentTok{# Cambia el formato de la fecha}
+\NormalTok{datos}\OperatorTok{$}\NormalTok{newdate <-}\StringTok{ }\NormalTok{lubridate}\OperatorTok{::}\KeywordTok{dmy}\NormalTok{(datos}\OperatorTok{$}\NormalTok{fecha)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Ahora crea una nueva variable con nuevo formato para la fecha}
+\NormalTok{xmax <-}\StringTok{ }\KeywordTok{max}\NormalTok{(}\KeywordTok{length}\NormalTok{(datos}\OperatorTok{$}\NormalTok{fecha))}
+\NormalTok{datos}\OperatorTok{$}\NormalTok{number <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,xmax}\DecValTok{-1}\NormalTok{)}
+\CommentTok{# Necesitamos los días del outbreak en México (después del 20-marzo)}
+\NormalTok{smalldf<-datos }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(number }\OperatorTok{>=}\StringTok{ }\DecValTok{72}\NormalTok{) }
+\CommentTok{# Ordena los datos}
+\NormalTok{x<-smalldf}\OperatorTok{$}\NormalTok{number}
+\NormalTok{x<-x}\DecValTok{-71}
+\NormalTok{y<-smalldf}\OperatorTok{$}\NormalTok{decesos}
+\NormalTok{nice<-}\KeywordTok{tibble}\NormalTok{(x,y)}
+\CommentTok{# Guarda datos finales}
+\KeywordTok{write.csv}\NormalTok{(nice, }\DataTypeTok{file=}\StringTok{"~/Repos/plotcovid19mx/nice.csv"}\NormalTok{)}
+\CommentTok{# Crea una gráfica base}
+\NormalTok{p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nice, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{x, }\DataTypeTok{y=}\NormalTok{y)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Crea el modelo exponencial}
+\NormalTok{m <-}\KeywordTok{nls}\NormalTok{(y}\OperatorTok{~}\NormalTok{a}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(b}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{start =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{a=}\FloatTok{0.01}\NormalTok{, }\DataTypeTok{b=}\FloatTok{0.15}\NormalTok{))}
+\CommentTok{# Imprime información del modelo}
+\KeywordTok{summary}\NormalTok{(m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Formula: y ~ a * exp(b * x)
+## 
+## Parameters:
+##   Estimate Std. Error t value Pr(>|t|)    
+## a  1.70853    0.71683   2.383   0.0258 *  
+## b  0.12414    0.01921   6.464 1.35e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.007 on 23 degrees of freedom
+## 
+## Number of iterations to convergence: 11 
+## Achieved convergence tolerance: 7.088e-06
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Agrega el ajuste con los parámetros del modelo}
+\NormalTok{p }\OperatorTok{+}
+\StringTok{  }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{'nls'}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{a }\OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(b }\OperatorTok{*}\StringTok{ }\NormalTok{x), }\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{,}
+              \DataTypeTok{method.args =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{start =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{a =} \FloatTok{1.7}\NormalTok{, }\DataTypeTok{b =}  \FloatTok{0.12}\NormalTok{))) }\OperatorTok{+}
+\CommentTok{# la ecuación de la exponencial,}
+\StringTok{      }\KeywordTok{annotate}\NormalTok{(}\StringTok{"label"}\NormalTok{, }\DataTypeTok{x=}\DecValTok{5}\NormalTok{, }\DataTypeTok{y=}\DecValTok{30}\NormalTok{, }\DataTypeTok{label=}\KeywordTok{TeX}\NormalTok{(}\StringTok{'$y  =  1.7  e^\{0.12  x \}$'}\NormalTok{)) }\OperatorTok{+}
+\CommentTok{# los títulos necesarios,}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Decesos"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Día"}\NormalTok{) }\OperatorTok{+}\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Decesos por covid-19 (18-03/13-04)"}\NormalTok{) }\OperatorTok{+}
+\CommentTok{# Cambia el tema base }
+\StringTok{  }\KeywordTok{theme_classic}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{covid19_mx_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Este solo para salida en formato html.}
+\CommentTok{#  dark_theme_gray(base_size = 15)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{document}
