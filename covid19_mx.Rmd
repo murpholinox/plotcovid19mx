@@ -3,8 +3,8 @@ title: "Covid 19 Mexico"
 author: "Murpholinox Peligro"
 date: "13 de abril 2020"
 output:
-  html_document:
-    df_print: paged
+  html_document: 
+    keep_md: yes
   pdf_document:
     keep_tex: yes
 ---
@@ -72,7 +72,7 @@ p2 <- p +
   stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
               method.args = list(start = list(a = 1.7, b =  0.12))) +
 # la ecuación de la exponencial,
-      annotate("label", x=5, y=30, label=TeX('$y  =  1.7  e^{0.12  x }$')) +
+      annotate("label", x=5, y=30, label=TeX('$y  =  2.4  e^{0.11  x }$')) +
 # los títulos necesarios,
   ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por covid-19 (20-03/13-04)") 
 # y cambia el tema base dependiendo del formato de salida
@@ -82,5 +82,3 @@ if (knitr::is_html_output()) {
   p2 + theme_light(base_size = 15)
 }
 ```
-
-
