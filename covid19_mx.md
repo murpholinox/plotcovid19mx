@@ -1,7 +1,7 @@
 ---
 title: "Covid 19 Mexico"
 author: "Murpholinox Peligro"
-date: "13 de abril 2020"
+date: "19 de abril 2020"
 output:
   html_document: 
     keep_md: yes
@@ -37,31 +37,31 @@ tac clean.csv > clean_r.csv
 ```
 
 ```
-## --2020-04-19 00:42:07--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv
+## --2020-04-19 00:52:18--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv
 ## Resolving opendata.ecdc.europa.eu (opendata.ecdc.europa.eu)... 212.181.0.63
 ## Connecting to opendata.ecdc.europa.eu (opendata.ecdc.europa.eu)|212.181.0.63|:443... connected.
 ## HTTP request sent, awaiting response... 301 Moved Permanently
 ## Location: https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/ [following]
-## --2020-04-19 00:42:13--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/
+## --2020-04-19 00:52:24--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/
 ## Reusing existing connection to opendata.ecdc.europa.eu:443.
 ## HTTP request sent, awaiting response... 200 OK
 ## Length: 594309 (580K) [application/octet-stream]
 ## Saving to: ‘full.csv’
 ## 
-##      0K .......... .......... .......... .......... ..........  8%  145K 4s
-##     50K .......... .......... .......... .......... .......... 17%  295K 2s
-##    100K .......... .......... .......... .......... .......... 25%  286K 2s
-##    150K .......... .......... .......... .......... .......... 34%  290K 2s
-##    200K .......... .......... .......... .......... .......... 43%  297K 1s
-##    250K .......... .......... .......... .......... .......... 51%  936K 1s
-##    300K .......... .......... .......... .......... .......... 60%  411K 1s
-##    350K .......... .......... .......... .......... .......... 68%  290K 1s
-##    400K .......... .......... .......... .......... .......... 77%  295K 0s
-##    450K .......... .......... .......... .......... .......... 86%  940K 0s
-##    500K .......... .......... .......... .......... .......... 94%  288K 0s
-##    550K .......... .......... ..........                      100%  249K=1.9s
+##      0K .......... .......... .......... .......... ..........  8%  141K 4s
+##     50K .......... .......... .......... .......... .......... 17%  277K 3s
+##    100K .......... .......... .......... .......... .......... 25%  279K 2s
+##    150K .......... .......... .......... .......... .......... 34%  282K 2s
+##    200K .......... .......... .......... .......... .......... 43%  285K 1s
+##    250K .......... .......... .......... .......... .......... 51%  281K 1s
+##    300K .......... .......... .......... .......... .......... 60%  984K 1s
+##    350K .......... .......... .......... .......... .......... 68%  376K 1s
+##    400K .......... .......... .......... .......... .......... 77%  289K 0s
+##    450K .......... .......... .......... .......... .......... 86%  281K 0s
+##    500K .......... .......... .......... .......... .......... 94%  264K 0s
+##    550K .......... .......... ..........                      100% 36.2M=2.0s
 ## 
-## 2020-04-19 00:42:15 (306 KB/s) - ‘full.csv’ saved [594309/594309]
+## 2020-04-19 00:52:26 (294 KB/s) - ‘full.csv’ saved [594309/594309]
 ```
 
 
@@ -125,7 +125,7 @@ p2 <- p +
 # la ecuación de la exponencial,
       annotate("label", x=5, y=30, label=TeX('$y  =  2.4  e^{0.11  x }$')) +
 # los títulos necesarios,
-  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por covid-19 (20-03/13-04)") 
+  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por covid-19 (20-03/19-04)") 
 # y cambia el tema base dependiendo del formato de salida
 if (knitr::is_html_output()) {
   p2 + dark_theme_gray(base_size = 15)
@@ -134,4 +134,12 @@ if (knitr::is_html_output()) {
 }
 ```
 
-![](covid19_mx_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
+```r
+  knitr::include_graphics('/home/murphy/Repos/plotcovid19mx/Rplot01.png')
+```
+
+<div class="figure" style="text-align: center">
+<img src="/home/murphy/Repos/plotcovid19mx/Rplot01.png" alt="Decesos" width="90%" />
+<p class="caption">Decesos</p>
+</div>

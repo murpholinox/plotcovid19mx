@@ -1,7 +1,7 @@
 ---
 title: "Covid 19 Mexico"
 author: "Murpholinox Peligro"
-date: "13 de abril 2020"
+date: "19 de abril 2020"
 output:
   html_document: 
     keep_md: yes
@@ -66,7 +66,7 @@ m <-nls(y~a*exp(b*x), start = list(a=0.01, b=0.15))
 summary(m)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r, eval=FALSE, warning=FALSE, message=FALSE}
 # Agrega el ajuste con los parámetros del modelo
 p2 <- p +
   stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
@@ -74,11 +74,15 @@ p2 <- p +
 # la ecuación de la exponencial,
       annotate("label", x=5, y=30, label=TeX('$y  =  2.4  e^{0.11  x }$')) +
 # los títulos necesarios,
-  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por covid-19 (20-03/13-04)") 
+  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por covid-19 (20-03/19-04)") 
 # y cambia el tema base dependiendo del formato de salida
 if (knitr::is_html_output()) {
   p2 + dark_theme_gray(base_size = 15)
 } else if (knitr::is_latex_output()) {
   p2 + theme_light(base_size = 15)
 }
+```
+
+```{r, out.width='90%', fig.align='center', fig.cap='Decesos'}
+  knitr::include_graphics('/home/murphy/Repos/plotcovid19mx/Rplot01.png')
 ```
