@@ -1,15 +1,12 @@
----
-title: "Covid 19 Mexico"
-author: "Murpholinox Peligro"
-date: "19 de abril 2020"
-output:
-  html_document: 
-    keep_md: yes
-  pdf_document:
-    keep_tex: yes
----
+# Covid 19 en México
 
+Resumen: Un archivo en formato `Rmd` para obtener el modelo exponencial del número de muertos diarios por Covid-19 en México.
 
+Autor: Murpholinox Peligro
+
+e-mail: murpholinox@gmail.com
+
+fecha: 19 de abril del 200
 
 ```r
 # Carga paquetes
@@ -21,7 +18,6 @@ library(dplyr)
 # Configura el directorio de trabajo
 setwd("/home/murphy/Repos/plotcovid19mx")
 ```
-
 
 ```bash
 # Descarga datos del European CDC
@@ -36,42 +32,12 @@ echo "fecha,decesos" >> clean.csv
 tac clean.csv > clean_r.csv
 ```
 
-```
-## --2020-04-19 00:52:18--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv
-## Resolving opendata.ecdc.europa.eu (opendata.ecdc.europa.eu)... 212.181.0.63
-## Connecting to opendata.ecdc.europa.eu (opendata.ecdc.europa.eu)|212.181.0.63|:443... connected.
-## HTTP request sent, awaiting response... 301 Moved Permanently
-## Location: https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/ [following]
-## --2020-04-19 00:52:24--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/
-## Reusing existing connection to opendata.ecdc.europa.eu:443.
-## HTTP request sent, awaiting response... 200 OK
-## Length: 594309 (580K) [application/octet-stream]
-## Saving to: ‘full.csv’
-## 
-##      0K .......... .......... .......... .......... ..........  8%  141K 4s
-##     50K .......... .......... .......... .......... .......... 17%  277K 3s
-##    100K .......... .......... .......... .......... .......... 25%  279K 2s
-##    150K .......... .......... .......... .......... .......... 34%  282K 2s
-##    200K .......... .......... .......... .......... .......... 43%  285K 1s
-##    250K .......... .......... .......... .......... .......... 51%  281K 1s
-##    300K .......... .......... .......... .......... .......... 60%  984K 1s
-##    350K .......... .......... .......... .......... .......... 68%  376K 1s
-##    400K .......... .......... .......... .......... .......... 77%  289K 0s
-##    450K .......... .......... .......... .......... .......... 86%  281K 0s
-##    500K .......... .......... .......... .......... .......... 94%  264K 0s
-##    550K .......... .......... ..........                      100% 36.2M=2.0s
-## 
-## 2020-04-19 00:52:26 (294 KB/s) - ‘full.csv’ saved [594309/594309]
-```
-
-
 ```r
 # Carga los datos semi limpios
 datos <- read.csv("~/Repos/plotcovid19mx/clean_r.csv")
 # Cambia el formato de la fecha
 datos$newdate <- lubridate::dmy(datos$fecha)
 ```
-
 
 ```r
 # Ahora crea una nueva variable con nuevo formato para la fecha
@@ -90,7 +56,6 @@ write.csv(nice, file="~/Repos/plotcovid19mx/nice.csv")
 # Crea una gráfica base
 p <- ggplot(data = nice, aes(x=x, y=y)) + geom_point()
 ```
-
 
 ```r
 # Crea el modelo exponencial
@@ -140,6 +105,6 @@ if (knitr::is_html_output()) {
 ```
 
 <div class="figure" style="text-align: center">
-<img src="/home/murphy/Repos/plotcovid19mx/Rplot01.png" alt="Decesos" width="90%" />
-<p class="caption">Decesos</p>
+<img src="https://raw.githubusercontent.com/murpholinox/plotcovid19mx/master/Rplot01.png" alt="Decesos" width="90%" />
+<p class="caption">Decesos diarios en México por Covid-19</p>
 </div>
