@@ -2,11 +2,7 @@
 title: "Covid 19 en México"
 author: "Murpholinox Peligro"
 date: "19 de abril del 2020"
-output:
-  pdf_document: 
-    keep_tex: yes
-  html_document: 
-    keep_md: yes
+output: pdf_document 
 ---
 
 
@@ -54,7 +50,9 @@ smalldf<-datos %>%
 x<-smalldf$number
 x<-x-71
 y<-smalldf$decesos
+y2<-y+1
 nice<-tibble(x,y)
+dummy<-tibble(x,y2)
 # Guarda datos finales en formato CSV.
 write.csv(nice, file="~/Repos/plotcovid19mx/nice.csv")
 # Crea una gráfica base.
@@ -62,33 +60,25 @@ p <- ggplot(data = nice, aes(x=x, y=y)) + geom_point()
 ```
 
 ```{r}
-# Crea el modelo exponencial.
-m <-nls(y~a*exp(b*x), start = list(a=0.6, b=0.16))
-# Imprime información del modelo.
-summary(m)
+# Crea modelo lineal.
+linm <- lm(log(y2)~x, data = dummy)
+# Obtiene los parámetros del modelo exponencial.
+a <- exp(coef(linm)[1])
+b <- coef(linm)[2]
+# Aplica los parámetros del modelo exponencial en la creación del mismo.
+expm <-nls(y ~ a * exp(b * x), start = list(a=a, b=b), data = nice)
+summary(expm)
 ```
 
 ```{r, warning=FALSE, message=FALSE}
 # Agrega el ajuste exponencial a la gráfica base,
 p2 <- p +
   stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
-              method.args = list(start = list(a = 2.27, b =  0.11))) +
+              method.args = list(start = list(a = a, b =  b))) +
 # la ecuación de la exponencial,
-      annotate("label", x=5, y=120, label=TeX('$y  =  2.27  e^{0.11  x }$')) +
-# los títulos necesarios,
-  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por Covid-19 (20-03/21-04)") 
-# y cambia el tema base dependiendo del formato de salida.
-if (knitr::is_html_output()) {
-  p2 + dark_theme_gray(base_size = 15)
-} else if (knitr::is_latex_output()) {
-  p2 + theme_light(base_size = 15)
-}
+#  annotate("label", x = 5, y = 115, label = TeX("$y = a e ^{bx}$")) +
+  # los títulos necesarios,
+  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por Covid-19 (20-03/21-04)")
+p2
 ```
 
-```{r, eval=FALSE, out.width='90%', fig.align='center', fig.cap='Decesos'}
-# La gráfica en PNG del HTML tiene un error de impresión en la fórmula.
-# Este pedazo de código reemplaza la gráfica de salida del pedazo de código 
-# anterior con una gráfica creada de manera manual, exportada a PDF y
-# convertida a PNG con inkscape. Esto no ocurre con el formato de salida en PDF.
-  knitr::include_graphics('/home/murphy/Repos/plotcovid19mx/Rplot01.png')
-```
