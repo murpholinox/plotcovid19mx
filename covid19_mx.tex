@@ -140,31 +140,34 @@
 \end{Shaded}
 
 \begin{verbatim}
-## --2020-04-19 14:38:50--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv
+## --2020-04-22 19:06:45--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv
 ## Resolving opendata.ecdc.europa.eu (opendata.ecdc.europa.eu)... 212.181.0.63
 ## Connecting to opendata.ecdc.europa.eu (opendata.ecdc.europa.eu)|212.181.0.63|:443... connected.
 ## HTTP request sent, awaiting response... 301 Moved Permanently
 ## Location: https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/ [following]
-## --2020-04-19 14:38:56--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/
+## --2020-04-22 19:06:46--  https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/
 ## Reusing existing connection to opendata.ecdc.europa.eu:443.
 ## HTTP request sent, awaiting response... 200 OK
-## Length: 605027 (591K) [application/octet-stream]
+## Length: 720081 (703K) [application/octet-stream]
 ## Saving to: ‘full.csv’
 ## 
-##      0K .......... .......... .......... .......... ..........  8%  137K 4s
-##     50K .......... .......... .......... .......... .......... 16%  252K 3s
-##    100K .......... .......... .......... .......... .......... 25%  272K 2s
-##    150K .......... .......... .......... .......... .......... 33%  271K 2s
-##    200K .......... .......... .......... .......... .......... 42%  269K 2s
-##    250K .......... .......... .......... .......... .......... 50%  276K 1s
-##    300K .......... .......... .......... .......... .......... 59% 1.63M 1s
-##    350K .......... .......... .......... .......... .......... 67%  298K 1s
-##    400K .......... .......... .......... .......... .......... 76%  272K 1s
-##    450K .......... .......... .......... .......... .......... 84%  296K 0s
-##    500K .......... .......... .......... .......... .......... 93% 1.24M 0s
-##    550K .......... .......... .......... ..........           100%  252K=2.1s
+##      0K .......... .......... .......... .......... ..........  7%  222K 3s
+##     50K .......... .......... .......... .......... .......... 14%  229K 3s
+##    100K .......... .......... .......... .......... .......... 21%  231K 2s
+##    150K .......... .......... .......... .......... .......... 28%  241K 2s
+##    200K .......... .......... .......... .......... .......... 35%  246K 2s
+##    250K .......... .......... .......... .......... .......... 42% 2.12M 1s
+##    300K .......... .......... .......... .......... .......... 49%  234K 1s
+##    350K .......... .......... .......... .......... .......... 56%  245K 1s
+##    400K .......... .......... .......... .......... .......... 63%  234K 1s
+##    450K .......... .......... .......... .......... .......... 71%  242K 1s
+##    500K .......... .......... .......... .......... .......... 78% 2.35M 1s
+##    550K .......... .......... .......... .......... .......... 85%  238K 0s
+##    600K .......... .......... .......... .......... .......... 92%  109K 0s
+##    650K .......... .......... .......... .......... .......... 99% 32.5K 0s
+##    700K ...                                                   100% 6111G=4.2s
 ## 
-## 2020-04-19 14:38:58 (288 KB/s) - ‘full.csv’ saved [605027/605027]
+## 2020-04-22 19:06:51 (169 KB/s) - ‘full.csv’ saved [720081/720081]
 \end{verbatim}
 
 \begin{Shaded}
@@ -213,15 +216,15 @@
 ## 
 ## Parameters:
 ##   Estimate Std. Error t value Pr(>|t|)    
-## a  1.50967    0.65550   2.303   0.0286 *  
-## b  0.12839    0.01558   8.238  4.4e-09 ***
+## a  2.27561    1.35473    1.68    0.103    
+## b  0.10903    0.01968    5.54 4.12e-06 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 10.16 on 29 degrees of freedom
+## Residual standard error: 18.54 on 32 degrees of freedom
 ## 
 ## Number of iterations to convergence: 5 
-## Achieved convergence tolerance: 9.72e-06
+## Achieved convergence tolerance: 1.709e-06
 \end{verbatim}
 
 \begin{Shaded}
@@ -229,11 +232,11 @@
 \CommentTok{# Agrega el ajuste exponencial a la gráfica base,}
 \NormalTok{p2 <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}
 \StringTok{  }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{'nls'}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{a }\OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(b }\OperatorTok{*}\StringTok{ }\NormalTok{x), }\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{,}
-              \DataTypeTok{method.args =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{start =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{a =} \FloatTok{1.51}\NormalTok{, }\DataTypeTok{b =}  \FloatTok{0.13}\NormalTok{))) }\OperatorTok{+}
+              \DataTypeTok{method.args =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{start =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{a =} \FloatTok{2.27}\NormalTok{, }\DataTypeTok{b =}  \FloatTok{0.11}\NormalTok{))) }\OperatorTok{+}
 \CommentTok{# la ecuación de la exponencial,}
-\StringTok{      }\KeywordTok{annotate}\NormalTok{(}\StringTok{"label"}\NormalTok{, }\DataTypeTok{x=}\DecValTok{5}\NormalTok{, }\DataTypeTok{y=}\DecValTok{30}\NormalTok{, }\DataTypeTok{label=}\KeywordTok{TeX}\NormalTok{(}\StringTok{'$y  =  1.51  e^\{0.13  x \}$'}\NormalTok{)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{annotate}\NormalTok{(}\StringTok{"label"}\NormalTok{, }\DataTypeTok{x=}\DecValTok{5}\NormalTok{, }\DataTypeTok{y=}\DecValTok{120}\NormalTok{, }\DataTypeTok{label=}\KeywordTok{TeX}\NormalTok{(}\StringTok{'$y  =  2.27  e^\{0.11  x \}$'}\NormalTok{)) }\OperatorTok{+}
 \CommentTok{# los títulos necesarios,}
-\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Decesos"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Día"}\NormalTok{) }\OperatorTok{+}\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Decesos por Covid-19 (20-03/19-04)"}\NormalTok{) }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Decesos"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Día"}\NormalTok{) }\OperatorTok{+}\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Decesos por Covid-19 (20-03/21-04)"}\NormalTok{) }
 \CommentTok{# y cambia el tema base dependiendo del formato de salida.}
 \ControlFlowTok{if}\NormalTok{ (knitr}\OperatorTok{::}\KeywordTok{is_html_output}\NormalTok{()) \{}
 \NormalTok{  p2 }\OperatorTok{+}\StringTok{ }\KeywordTok{dark_theme_gray}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{15}\NormalTok{)}
@@ -242,6 +245,8 @@
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{covid19_mx_files/figure-latex/unnamed-chunk-6-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -252,14 +257,5 @@
 \NormalTok{  knitr}\OperatorTok{::}\KeywordTok{include_graphics}\NormalTok{(}\StringTok{'/home/murphy/Repos/plotcovid19mx/Rplot01.png'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{/home/murphy/Repos/plotcovid19mx/Rplot01} 
-
-}
-
-\caption{Decesos}\label{fig:unnamed-chunk-7}
-\end{figure}
 
 \end{document}

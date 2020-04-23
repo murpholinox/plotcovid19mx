@@ -68,15 +68,15 @@ m <-nls(y~a*exp(b*x), start = list(a=0.6, b=0.16))
 summary(m)
 ```
 
-```{r, eval=FALSE, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 # Agrega el ajuste exponencial a la gráfica base,
 p2 <- p +
   stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
-              method.args = list(start = list(a = 1.51, b =  0.13))) +
+              method.args = list(start = list(a = 2.27, b =  0.11))) +
 # la ecuación de la exponencial,
-      annotate("label", x=5, y=30, label=TeX('$y  =  1.51  e^{0.13  x }$')) +
+      annotate("label", x=5, y=120, label=TeX('$y  =  2.27  e^{0.11  x }$')) +
 # los títulos necesarios,
-  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por Covid-19 (20-03/19-04)") 
+  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por Covid-19 (20-03/21-04)") 
 # y cambia el tema base dependiendo del formato de salida.
 if (knitr::is_html_output()) {
   p2 + dark_theme_gray(base_size = 15)
@@ -85,7 +85,7 @@ if (knitr::is_html_output()) {
 }
 ```
 
-```{r, out.width='90%', fig.align='center', fig.cap='Decesos'}
+```{r, eval=FALSE, out.width='90%', fig.align='center', fig.cap='Decesos'}
 # La gráfica en PNG del HTML tiene un error de impresión en la fórmula.
 # Este pedazo de código reemplaza la gráfica de salida del pedazo de código 
 # anterior con una gráfica creada de manera manual, exportada a PDF y
