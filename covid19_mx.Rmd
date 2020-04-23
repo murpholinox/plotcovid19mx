@@ -1,7 +1,7 @@
 ---
 title: "Covid 19 en México"
 author: "Murpholinox Peligro"
-date: "19 de abril del 2020"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: pdf_document 
 ---
 
@@ -77,6 +77,8 @@ p2 <- p +
               method.args = list(start = list(a = a, b =  b))) +
 # la ecuación de la exponencial,
 #  annotate("label", x = 5, y = 115, label = TeX("$y = a e ^{bx}$")) +
+  # falta ver si es posible añadir la ecuación y usar variables
+  # https://stackoverflow.com/questions/61380190
   # los títulos necesarios,
   ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por Covid-19 (20-03/21-04)")
 p2
