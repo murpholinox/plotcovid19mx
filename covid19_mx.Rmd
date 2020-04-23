@@ -1,7 +1,7 @@
 ---
 title: "Covid 19 en México"
 author: "Murpholinox Peligro"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "`r format(Sys.time(), '%d %m, %Y')`"
 output: pdf_document 
 ---
 
@@ -63,24 +63,26 @@ p <- ggplot(data = nice, aes(x=x, y=y)) + geom_point()
 # Crea modelo lineal.
 linm <- lm(log(y2)~x, data = dummy)
 # Obtiene los parámetros del modelo exponencial.
-a <- exp(coef(linm)[1])
-b <- coef(linm)[2]
+a1 <- exp(coef(linm)[1])
+b1 <- coef(linm)[2]
 # Aplica los parámetros del modelo exponencial en la creación del mismo.
-expm <-nls(y ~ a * exp(b * x), start = list(a=a, b=b), data = nice)
+expm <-nls(y ~ a * exp(b * x), start = list(a=a1, b=b1), data = nice)
 summary(expm)
+a2 <- coef(expm)[1]
+b2 <- coef(expm)[2]
 ```
 
 ```{r, warning=FALSE, message=FALSE}
 # Agrega el ajuste exponencial a la gráfica base,
 p2 <- p +
   stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
-              method.args = list(start = list(a = a, b =  b))) +
+              method.args = list(start = list(a = a2, b =  b2))) +
 # la ecuación de la exponencial,
-#  annotate("label", x = 5, y = 115, label = TeX("$y = a e ^{bx}$")) +
-  # falta ver si es posible añadir la ecuación y usar variables
-  # https://stackoverflow.com/questions/61380190
-  # los títulos necesarios,
-  ylab("Decesos") + xlab("Día") +  ggtitle("Decesos por Covid-19 (20-03/21-04)")
+annotate("label", x = 10, y = 100, 
+         label = TeX(sprintf("$y = %.2f e ^{%.2fx}$", a2, b2))) +
+    # los títulos necesarios,
+  ylab("Decesos") + xlab("Día") +
+  ggtitle("Decesos por Covid-19 en México, a partir del 20 de marzo.")
 p2
 ```
 
