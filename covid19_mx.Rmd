@@ -1,7 +1,7 @@
 ---
 title: "Covid 19 en México"
 author: "Murpholinox Peligro"
-date: "`r format(Sys.time(), '%d %m, %Y')`"
+date: "`r format(Sys.time(), '%d %m %Y')`"
 output: pdf_document 
 ---
 
