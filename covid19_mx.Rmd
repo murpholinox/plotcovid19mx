@@ -9,7 +9,7 @@ output: pdf_document
 ```{r, warning=FALSE, message=FALSE}
 # Carga los paquetes necesarios.
 library(ggplot2)
-library(ggdark)
+#library(ggdark) # No necesario si solo se crea el PDF.
 library(latex2exp)
 library(lubridate)
 library(dplyr)
@@ -52,6 +52,8 @@ x<-x-71
 y<-smalldf$decesos
 y2<-y+1
 nice<-tibble(x,y)
+# Se crean dos data frames, porque el modelo lineal con logaritmos se quiebra
+# al tener ceros en y, por eso tenemos y2.
 dummy<-tibble(x,y2)
 # Guarda datos finales en formato CSV.
 write.csv(nice, file="~/Repos/plotcovid19mx/nice.csv")
@@ -60,12 +62,12 @@ p <- ggplot(data = nice, aes(x=x, y=y)) + geom_point()
 ```
 
 ```{r}
-# Crea modelo lineal.
+# Crea modelo lineal con el data frame dummy que contiene y2=y+1.
 linm <- lm(log(y2)~x, data = dummy)
-# Obtiene los parámetros del modelo exponencial.
+# Obtiene los parámetros del modelo lineal.
 a1 <- exp(coef(linm)[1])
 b1 <- coef(linm)[2]
-# Aplica los parámetros del modelo exponencial en la creación del mismo.
+# Aplica los parámetros del modelo lineal en la creación del modelo exponencial.
 expm <-nls(y ~ a * exp(b * x), start = list(a=a1, b=b1), data = nice)
 summary(expm)
 a2 <- coef(expm)[1]
