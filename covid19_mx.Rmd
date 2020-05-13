@@ -87,4 +87,4 @@ annotate("label", x = 10, y = 100,
   ggtitle("Decesos por Covid-19 en México, a partir del 20 de marzo.")
 p2
 ```
-
+  
