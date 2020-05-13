@@ -72,6 +72,8 @@ expm <-nls(y ~ a * exp(b * x), start = list(a=a1, b=b1), data = nice)
 summary(expm)
 a2 <- coef(expm)[1]
 b2 <- coef(expm)[2]
+# Obtiene el número de decesos acumulados
+cum <- sum(y)
 ```
 
 ```{r, warning=FALSE, message=FALSE}
@@ -80,8 +82,11 @@ p2 <- p +
   stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
               method.args = list(start = list(a = a2, b =  b2))) +
 # la ecuación de la exponencial,
-annotate("label", x = 10, y = 100, 
+annotate("label", x = 10, y = 150, 
          label = TeX(sprintf("$y = %.2f e ^{%.2fx}$", a2, b2))) +
+# una etiqueta para el número de decesos acumulados,
+annotate("label", x = 10, y = 200,
+         label = TeX(sprintf("Decesos acumulados, %d", cum)))  +
     # los títulos necesarios,
   ylab("Decesos") + xlab("Día") +
   ggtitle("Decesos por Covid-19 en México, a partir del 20 de marzo.")
