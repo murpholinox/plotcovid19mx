@@ -79,13 +79,17 @@ cum <- sum(y)
 ```{r, warning=FALSE, message=FALSE}
 # Agrega el ajuste exponencial a la gráfica base,
 p2 <- p +
-  stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
-              method.args = list(start = list(a = a2, b =  b2))) +
+stat_smooth(method = 'lm', aes(colour = 'linear'), se = FALSE) +
+stat_smooth(method = 'lm', formula = y ~ poly(x,2), aes(colour = 'polynomial'), se= FALSE) +
+stat_smooth(method = 'nls', formula = y ~ a * log(x) +b, aes(colour = 'logarithmic'), se = FALSE, start = list(a=1,b=1)) +
+stat_smooth(method = 'nls', formula = y ~ a*exp(b *x), aes(colour = 'exponential'), se = FALSE, start = list(a=1,b=1)) +
+#  stat_smooth(method = 'nls', formula = y ~ a * exp(b * x), se=FALSE,
+#              method.args = list(start = list(a = a2, b =  b2))) +
 # la ecuación de la exponencial,
-annotate("label", x = 10, y = 150, 
-         label = TeX(sprintf("$y = %.2f e ^{%.2fx}$", a2, b2))) +
+#annotate("label", x = 30, y = 700, 
+#         label = TeX(sprintf("$y = %.2f e ^{%.2fx}$", a2, b2))) +
 # una etiqueta para el número de decesos acumulados,
-annotate("label", x = 10, y = 200,
+annotate("label", x = 30, y = 900,
          label = TeX(sprintf("Decesos acumulados, %d", cum)))  +
     # los títulos necesarios,
   ylab("Decesos") + xlab("Día") +
